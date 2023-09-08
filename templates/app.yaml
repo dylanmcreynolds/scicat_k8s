@@ -27,33 +27,35 @@ spec:
         - sleep
         - "99999"
         env:
-        - name: NODE_OPTIONS
-          value: --max-old-space-size=8192
-        - name: USER_SVC_API_URL
-          value: https://api1-prd.als.lbl.gov:8083/api/v1/users/
-        - name: USER_SVC_API_KEY
-          valueFrom:
-            secretKeyRef:
-              key: API_KEY
-              name: datadirectory
-        - name: DOI_PREFIX
-          value: DOI.SAMPLE.PREFIX
-        - name: EXPRESS_SESSION_SECRET
-          value: a_scicat_secret
-        - name: HTTP_MAX_REDIRECTS
-          value: "5"
-        - name: HTTP_TIMEOUT
-          value: "5000"
-        - name: JWT_EXPIRES_IN
-          value: "3600"
-        - name: JWT_SECRET
-          value: a_scicat_secret
-        - name: MONGODB_URI
-          value: mongodb://db:27017/scicat
-        - name: PID_PREFIX
-          value: als
-        - name: PORT
-          value: "3000"
+            - name: NODE_OPTIONS
+              value: --max-old-space-size=8192
+            - name: USER_SVC_API_URL
+              value: https://api1-prd.als.lbl.gov:8083/api/v1/users/
+            - name: USER_SVC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: API_KEY
+                  name: datadirectory
+            - name: DOI_PREFIX
+              value: DOI.SAMPLE.PREFIX
+            - name: EXPRESS_SESSION_SECRET
+              value: a_scicat_secret
+            - name: HTTP_MAX_REDIRECTS
+              value: "5"
+            - name: HTTP_TIMEOUT
+              value: "5000"
+            - name: JWT_EXPIRES_IN
+              value: "3600"
+            - name: JWT_SECRET
+              value: a_scicat_secret
+            - name: PID_PREFIX
+              value: als
+            - name: PORT
+              value: "3000"
+        envFrom:
+          - secretRef:
+              name: mongo-user-uri
+              optional: false
         image: ghcr.io/scicatproject/backend-next:c6b2407bddf31fa501057006b4ed4fd343767fb5
         name: backend
         imagePullPolicy: Always
@@ -129,3 +131,7 @@ spec:
             secretName: migrations-mongodburi
         - name: als-settings
           emptyDir:
+        - name: mongo-user-uri
+          secret:
+            defaultMode: 420
+            secretName: mongo-user-uri
