@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "30"
+    field.cattle.io/creatorId: u-k6z3wvz5on
+    field.cattle.io/publicEndpoints: '[{"addresses":["128.55.206.106"],"port":80,"protocol":"HTTP","serviceName":"als-portal:ingress-8f1212126820441ad83e7b467dc0f413","ingressName":"als-portal:lb","hostname":"dataportal.als.lbl.gov","path":"/static","allNodes":true}]'
+    nersc.gov/collab_uids: 71383,57074,92620
+    nersc.gov/gid: "79966"
+    nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414
+    nersc.gov/roles: user
+    nersc.gov/uid: "79966"
+    nersc.gov/username: dmcreyno
+  creationTimestamp: "2021-09-07T23:41:10Z"
+  generation: 219
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-als-portal-static-pages
+  name: static-pages
+  namespace: als-portal
+  resourceVersion: "530258241"
+  selfLink: /apis/apps/v1/namespaces/als-portal/deployments/static-pages
+  uid: 2f10a545-31fc-4c72-9c17-aad2ccb83136
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-als-portal-static-pages
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2021-10-25T23:02:48Z"
+        nersc.gov/collab_uids: 71383,57074,92620
+        nersc.gov/gid: "79966"
+        nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414
+        nersc.gov/roles: user
+        nersc.gov/uid: "79966"
+        nersc.gov/username: dmcreyno
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-als-portal-static-pages
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: static-pages
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          runAsUser: 79966
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/static/user-login.html
+          name: vol1
+          readOnly: true
+          subPath: user-login.html
+        - mountPath: /etc/nginx/nginx.conf
+          name: vol1
+          subPath: nginx.conf
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 94721
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 256
+          items:
+          - key: user-login
+            path: user-login.html
+          - key: nginx.conf
+            path: nginx.conf
+          name: static-web
+          optional: false
+        name: vol1
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2021-09-08T07:18:25Z"
+    lastUpdateTime: "2021-10-25T23:02:52Z"
+    message: ReplicaSet "static-pages-58669bf866" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2023-08-08T16:09:22Z"
+    lastUpdateTime: "2023-08-08T16:09:22Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 219
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

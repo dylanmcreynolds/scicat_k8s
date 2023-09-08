@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "16"
+    field.cattle.io/creatorId: u-k6z3wvz5on
+    field.cattle.io/publicEndpoints: '[{"addresses":["128.55.206.106"],"port":80,"protocol":"HTTP","serviceName":"als-portal:ingress-82ffd71e4aff35abae85836c65648842","ingressName":"als-portal:lb","hostname":"dataportal.als.lbl.gov","path":"/zip_in_place","allNodes":true}]'
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"24","field.cattle.io/creatorId":"u-k6z3wvz5on","field.cattle.io/publicEndpoints":"[{\"addresses\":[\"128.55.206.100\"],\"port\":80,\"protocol\":\"HTTP\",\"serviceName\":\"als-portal:ingress-cb73b67732b8b95a85d3eca583083c39\",\"ingressName\":\"als-portal:dataportal\",\"hostname\":\"dataportal.als.lbl.gov\",\"path\":\"/zip\",\"allNodes\":true},{\"addresses\":[\"128.55.206.100\"],\"port\":80,\"protocol\":\"HTTP\",\"serviceName\":\"als-portal:ingress-8af506dba9c8ce1569c9684fb8e4ba40\",\"ingressName\":\"als-portal:dataportal\",\"hostname\":\"dataportal.als.lbl.gov\",\"path\":\"/download\",\"allNodes\":true}]","nersc.gov/gid":"79966","nersc.gov/gids":"55452,71384,76870,79966,73814,91806,92619,93859,94656","nersc.gov/uid":"79966","nersc.gov/username":"dmcreyno"},"creationTimestamp":"2021-03-10T17:51:41Z","generation":267,"labels":{"cattle.io/creator":"norman","workload.user.cattle.io/workloadselector":"deployment-als-portal-zipservice"},"name":"zipservice","namespace":"als-portal","resourceVersion":"145632662","selfLink":"/apis/apps/v1/namespaces/als-portal/deployments/zipservice","uid":"17caedbb-cb98-4d2f-84a8-9ba39fb8ee98"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"workload.user.cattle.io/workloadselector":"deployment-als-portal-zipservice"}},"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"cattle.io/timestamp":"2021-05-05T21:21:40Z"},"creationTimestamp":null,"labels":{"workload.user.cattle.io/workloadselector":"deployment-als-portal-zipservice"}},"spec":{"containers":[{"image":"registry.nersc.gov/als/zip:v0.1.0","imagePullPolicy":"Always","name":"zipservice","resources":{},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"add":["NET_BIND_SERVICE"],"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":false,"runAsNonRoot":true,"runAsUser":79966},"stdin":true,"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","tty":true,"volumeMounts":[{"mountPath":"/data_mover","name":"vol1","readOnly":true},{"mountPath":"/tmp/zip","name":"vol2"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-nersc"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{"fsGroup":55452},"terminationGracePeriodSeconds":30,"volumes":[{"hostPath":{"path":"/global/cfs/projectdirs/als/data_mover","type":"Directory"},"name":"vol1"},{"hostPath":{"path":"/global/cfs/projectdirs/als/data_portal/zip","type":"Directory"},"name":"vol2"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2021-04-21T21:49:39Z","lastUpdateTime":"2021-04-21T21:49:39Z","message":"Deployment
+      has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2021-03-16T15:45:57Z","lastUpdateTime":"2021-05-05T21:21:45Z","message":"ReplicaSet
+      \"zipservice-76fc589dd9\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":267,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}'
+    nersc.gov/collab_uids: 71383,57074,92620
+    nersc.gov/gid: "79966"
+    nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414
+    nersc.gov/roles: user
+    nersc.gov/uid: "79966"
+    nersc.gov/username: dmcreyno
+  creationTimestamp: "2021-05-07T16:32:29Z"
+  generation: 233
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-als-portal-zipservice
+  name: zipservice
+  namespace: als-portal
+  resourceVersion: "530258242"
+  selfLink: /apis/apps/v1/namespaces/als-portal/deployments/zipservice
+  uid: 049dcd4b-06c0-46fb-a0f3-c1e7fe0400b0
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 0
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-als-portal-zipservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2022-07-10T22:19:06Z"
+        field.cattle.io/publicEndpoints: '[{"addresses":["128.55.206.106"],"allNodes":true,"hostname":"dataportal.als.lbl.gov","ingressId":"als-portal:lb","path":"/zip_in_place","port":80,"protocol":"HTTP","serviceId":"als-portal:ingress-82ffd71e4aff35abae85836c65648842"}]'
+        nersc.gov/collab_uids: 71383,57074,92620
+        nersc.gov/gid: "79966"
+        nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414
+        nersc.gov/roles: user
+        nersc.gov/uid: "79966"
+        nersc.gov/username: dmcreyno
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-als-portal-zipservice
+    spec:
+      containers:
+      - image: ghcr.io/als-computing/zip-service:als-deploy
+        imagePullPolicy: Always
+        name: zipservice
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          runAsUser: 79966
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /data_mover
+          name: vol1
+          readOnly: true
+        - mountPath: /tmp/zip
+          name: vol2
+          readOnly: true
+        - mountPath: /global/project/projectdirs/als
+          name: spot-files
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 55452
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /global/cfs/projectdirs/als/data_mover
+          type: Directory
+        name: vol1
+      - hostPath:
+          path: /global/cfs/projectdirs/als/data_portal/zip
+          type: Directory
+        name: vol2
+      - hostPath:
+          path: /global/cfs/projectdirs/als/
+          type: Directory
+        name: spot-files
+status:
+  conditions:
+  - lastTransitionTime: "2021-05-07T16:32:29Z"
+    lastUpdateTime: "2022-07-10T22:19:12Z"
+    message: ReplicaSet "zipservice-9d658d48f" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2022-07-18T21:46:40Z"
+    lastUpdateTime: "2022-07-18T21:46:40Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 233

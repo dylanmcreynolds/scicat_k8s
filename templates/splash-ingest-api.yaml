@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "17"
+    field.cattle.io/creatorId: u-k6z3wvz5on
+    field.cattle.io/publicEndpoints: '[{"addresses":["128.55.206.106"],"port":80,"protocol":"HTTP","serviceName":"als-portal:ingress-e4526719184ba7bfca2920e829fc2155","ingressName":"als-portal:lb","hostname":"dataportal.als.lbl.gov","path":"/api/ingest","allNodes":true}]'
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"15","field.cattle.io/creatorId":"u-k6z3wvz5on","field.cattle.io/publicEndpoints":"[{\"addresses\":[\"128.55.206.100\"],\"port\":80,\"protocol\":\"HTTP\",\"serviceName\":\"als-portal:ingress-5b7226f9e983bf221a9c4ee265fad042\",\"ingressName\":\"als-portal:dataportal\",\"hostname\":\"dataportal.als.lbl.gov\",\"path\":\"/api/ingest\",\"allNodes\":true}]","nersc.gov/gid":"79966","nersc.gov/gids":"55452,71384,76870,79966,73814,91806,92619,93859,94656","nersc.gov/uid":"79966","nersc.gov/username":"dmcreyno"},"creationTimestamp":"2021-03-11T01:59:40Z","generation":34,"labels":{"cattle.io/creator":"norman","workload.user.cattle.io/workloadselector":"deployment-als-portal-splash-ingest-api"},"name":"splash-ingest-api","namespace":"als-portal","resourceVersion":"145941769","selfLink":"/apis/apps/v1/namespaces/als-portal/deployments/splash-ingest-api","uid":"dac3f67f-d9d1-47f7-9f64-14da434b9013"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"workload.user.cattle.io/workloadselector":"deployment-als-portal-splash-ingest-api"}},"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"cattle.io/timestamp":"2021-05-06T18:37:15Z"},"creationTimestamp":null,"labels":{"workload.user.cattle.io/workloadselector":"deployment-als-portal-splash-ingest-api"}},"spec":{"containers":[{"env":[{"name":"APP_MODULE","value":"splash_ingest.server.api:app"},{"name":"PORT","value":"8080"},{"name":"DATABROKER_DB_NAME","valueFrom":{"secretKeyRef":{"key":"DATABROKER_DB_NAME","name":"db-connection","optional":false}}},{"name":"DATABROKER_DB_URI","valueFrom":{"secretKeyRef":{"key":"DATABROKER_DB_URI","name":"db-connection","optional":false}}},{"name":"INGEST_DB_NAME","valueFrom":{"secretKeyRef":{"key":"INGEST_DB_NAME","name":"db-connection","optional":false}}},{"name":"INGEST_DB_URI","valueFrom":{"secretKeyRef":{"key":"INGEST_DB_URI","name":"db-connection","optional":false}}}],"image":"registry.nersc.gov/als/splash_ingest_webservice:v0.2.1","imagePullPolicy":"Always","name":"splash-ingest-api","resources":{},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"add":["NET_BIND_SERVICE"],"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":false,"runAsNonRoot":true,"runAsUser":79966},"stdin":true,"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","tty":true,"volumeMounts":[{"mountPath":"/data_mover","name":"data-mover"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-nersc"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{"fsGroup":55452},"terminationGracePeriodSeconds":30,"volumes":[{"hostPath":{"path":"/global/cfs/cdirs/als/data_mover","type":"Directory"},"name":"data-mover"}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2021-05-05T20:34:45Z","lastUpdateTime":"2021-05-05T20:34:45Z","message":"Deployment
+      has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2021-03-11T01:59:40Z","lastUpdateTime":"2021-05-06T18:37:20Z","message":"ReplicaSet
+      \"splash-ingest-api-6bb76bc55b\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":34,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}'
+    nersc.gov/collab_uids: 71383,57074,92620
+    nersc.gov/gid: "79966"
+    nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414,99273,100403
+    nersc.gov/roles: user
+    nersc.gov/uid: "79966"
+    nersc.gov/username: dmcreyno
+  creationTimestamp: "2021-05-06T19:48:52Z"
+  generation: 242
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-als-portal-splash-ingest-api
+  name: splash-ingest-api
+  namespace: als-portal
+  resourceVersion: "537993563"
+  selfLink: /apis/apps/v1/namespaces/als-portal/deployments/splash-ingest-api
+  uid: a9501473-1f59-46b0-9851-b66f7fe87c02
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-als-portal-splash-ingest-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2023-02-17T16:17:15Z"
+        field.cattle.io/publicEndpoints: '[{"addresses":["128.55.206.106"],"allNodes":true,"hostname":"dataportal.als.lbl.gov","ingressId":"als-portal:lb","path":"/api/ingest","port":80,"protocol":"HTTP","serviceId":"als-portal:ingress-e4526719184ba7bfca2920e829fc2155"}]'
+        nersc.gov/collab_uids: 71383,57074,92620
+        nersc.gov/gid: "79966"
+        nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414,99273,100403
+        nersc.gov/roles: user
+        nersc.gov/uid: "79966"
+        nersc.gov/username: dmcreyno
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-als-portal-splash-ingest-api
+    spec:
+      containers:
+      - env:
+        - name: APP_MODULE
+          value: splash_ingest.server.api:app
+        - name: PORT
+          value: "8080"
+        - name: DATABROKER_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              key: DATABROKER_DB_NAME
+              name: db-connection
+        - name: DATABROKER_DB_URI
+          valueFrom:
+            secretKeyRef:
+              key: DATABROKER_DB_URI
+              name: db-connection
+        - name: INGEST_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              key: INGEST_DB_NAME
+              name: db-connection
+        - name: INGEST_DB_URI
+          valueFrom:
+            secretKeyRef:
+              key: INGEST_DB_URI
+              name: db-connection
+        image: ghcr.io/als-computing/splash-ingest-webservice:master
+        imagePullPolicy: Always
+        name: splash-ingest-api
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          runAsUser: 79966
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /data_mover
+          name: data-mover
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 55452
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /global/cfs/cdirs/als/data_mover
+          type: Directory
+        name: data-mover
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2023-02-17T17:23:40Z"
+    lastUpdateTime: "2023-02-17T17:23:40Z"
+    message: ReplicaSet "splash-ingest-api-f87859d47" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2023-09-06T15:05:12Z"
+    lastUpdateTime: "2023-09-06T15:05:12Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 242
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

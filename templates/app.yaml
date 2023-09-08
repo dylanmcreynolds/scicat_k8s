@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    field.cattle.io/creatorId: u-k6z3wvz5on
+  labels:
+    workload.user.cattle.io/workloadselector: deployment-als-portal-app
+  name: app
+  namespace: als-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-als-portal-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-als-portal-app
+    spec:
+      containers:
+      - args:
+        - sleep
+        - "99999"
+        env:
+        - name: NODE_OPTIONS
+          value: --max-old-space-size=8192
+        - name: USER_SVC_API_URL
+          value: https://api1-prd.als.lbl.gov:8083/api/v1/users/
+        - name: USER_SVC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: API_KEY
+              name: datadirectory
+        - name: DOI_PREFIX
+          value: DOI.SAMPLE.PREFIX
+        - name: EXPRESS_SESSION_SECRET
+          value: a_scicat_secret
+        - name: HTTP_MAX_REDIRECTS
+          value: "5"
+        - name: HTTP_TIMEOUT
+          value: "5000"
+        - name: JWT_EXPIRES_IN
+          value: "3600"
+        - name: JWT_SECRET
+          value: a_scicat_secret
+        - name: MONGODB_URI
+          value: mongodb://db:27017/scicat
+        - name: PID_PREFIX
+          value: als
+        - name: PORT
+          value: "3000"
+        image: ghcr.io/scicatproject/backend-next:c6b2407bddf31fa501057006b4ed4fd343767fb5
+        name: backend
+        imagePullPolicy: Always
+        name: app 
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+          runAsUser: 79966
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+          - mountPath: /home/node/app/.env
+            subPath: .env
+            name: migrations-secret
+          - name: als-settings
+            readOnly: false
+            mountPath: /home/node/app/migrate-mongo-config.js
+            subPath: als-settings/backend/migrate-mongo-config.js
+          - name: als-settings
+            readOnly: false
+            mountPath: /home/node/app/migrate-mongo-config.js
+            subPath: als-settings/backend/migrate-mongo-config.js
+      initContainers:
+      # A sidecar container that downloads current main from setttings github repo
+      # and places it into an emptydir volume. This gets picked up by scicat backend
+      # which mountains files 
+      - name: git-sync
+        image: k8s.gcr.io/git-sync:v3.1.6
+        env:
+        - name: GIT_SYNC_REPO
+          value: "https://github.com/als-computing/scicat_als_config.git"
+        - name: GIT_SYNC_BRANCH
+          value: "main"
+        - name: GIT_SYNC_ROOT
+          value: "/als-settings"
+        - name: GIT_SYNC_DEST
+          value: "als-settings"
+        - name: GIT_SYNC_ONE_TIME
+          value: "true"
+        volumeMounts:
+          - name: als-settings
+            readOnly: false
+            mountPath: /als-settings
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          runAsUser: 79966
+      volumes:
+      - name: als-config
+        emptyDir: {}
+      securityContext:
+        fsGroup: 94721
+      volumes:
+        - name: migrations-secret
+          secret:
+            defaultMode: 420
+            secretName: migrations-mongodburi
+        - name: als-settings
+          emptyDir:

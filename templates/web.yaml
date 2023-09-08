@@ -1,0 +1,128 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "32"
+    field.cattle.io/creatorId: u-k6z3wvz5on
+    field.cattle.io/publicEndpoints: '[{"addresses":["128.55.206.106"],"port":80,"protocol":"HTTP","serviceName":"als-portal:ingress-c53ada913c2649ae96488485931e5d46","ingressName":"als-portal:lb","hostname":"dataportal.als.lbl.gov","path":"/","allNodes":true},{"addresses":["128.55.206.106"],"port":80,"protocol":"HTTP","serviceName":"als-portal:ingress-0fc1e7c820a4d0a50fe509891630b255","ingressName":"als-portal:lb","hostname":"lb.als-portal.production.svc.spin.nersc.org","path":"/","allNodes":true}]'
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"1","field.cattle.io/creatorId":"u-k6z3wvz5on","field.cattle.io/publicEndpoints":"[{\"addresses\":[\"128.55.206.100\"],\"port\":80,\"protocol\":\"HTTP\",\"serviceName\":\"als-portal:ingress-ef00a055e58b8dad3120625ff76a410a\",\"ingressName\":\"als-portal:dataportal\",\"hostname\":\"lb.als-portal.development.svc.spin.nersc.org\",\"allNodes\":true},{\"addresses\":[\"128.55.206.100\"],\"port\":80,\"protocol\":\"HTTP\",\"serviceName\":\"als-portal:ingress-0b7da337aa8e92ded77d3f1d51c5a7b5\",\"ingressName\":\"als-portal:dataportal\",\"hostname\":\"dataportal.als.lbl.gov\",\"allNodes\":true}]"},"creationTimestamp":"2021-03-10T16:32:29Z","generation":234,"labels":{"cattle.io/creator":"norman","workload.user.cattle.io/workloadselector":"deployment-als-portal-web"},"name":"web","namespace":"als-portal","resourceVersion":"144723830","selfLink":"/apis/apps/v1/namespaces/als-portal/deployments/web","uid":"3840bce0-a450-45ba-9928-563f784e8fe6"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"workload.user.cattle.io/workloadselector":"deployment-als-portal-web"}},"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"cattle.io/timestamp":"2021-03-10T16:32:29Z"},"creationTimestamp":null,"labels":{"workload.user.cattle.io/workloadselector":"deployment-als-portal-web"}},"spec":{"containers":[{"image":"registry.nersc.gov/als/catanie:v3.1.0-217-g555e9325","imagePullPolicy":"Always","name":"web","resources":{},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"add":["CHOWN","DAC_OVERRIDE","FOWNER","NET_BIND_SERVICE","SETGID","SETUID"],"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":false,"runAsNonRoot":false},"stdin":true,"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","tty":true}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"registry-nersc"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2021-03-10T16:32:29Z","lastUpdateTime":"2021-03-10T16:32:32Z","message":"ReplicaSet
+      \"web-5746465f64\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2021-04-21T21:49:36Z","lastUpdateTime":"2021-04-21T21:49:36Z","message":"Deployment
+      has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":234,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}'
+    nersc.gov/collab_uids: 71383,57074,92620
+    nersc.gov/gid: "79966"
+    nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414,99273,100403
+    nersc.gov/roles: user
+    nersc.gov/uid: "79966"
+    nersc.gov/username: dmcreyno
+  creationTimestamp: "2021-05-07T16:32:01Z"
+  generation: 244
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-als-portal-web
+  name: web
+  namespace: als-portal
+  resourceVersion: "530258244"
+  selfLink: /apis/apps/v1/namespaces/als-portal/deployments/web
+  uid: 7603e054-7f21-45b7-bd94-e6a5f9a5a32f
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-als-portal-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2023-02-22T00:51:33Z"
+        field.cattle.io/ports: '[[]]'
+        nersc.gov/collab_uids: 71383,57074,92620
+        nersc.gov/gid: "79966"
+        nersc.gov/gids: 55452,76870,79966,91806,93859,94656,94721,96414,99273,100403
+        nersc.gov/roles: user
+        nersc.gov/uid: "79966"
+        nersc.gov/username: dmcreyno
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-als-portal-web
+    spec:
+      containers:
+      - env:
+        - name: env
+          value: als-prod
+        image: dacat/catanie:latest
+        imagePullPolicy: Always
+        name: web
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - CHOWN
+            - DAC_OVERRIDE
+            - FOWNER
+            - NET_BIND_SERVICE
+            - SETGID
+            - SETUID
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: vol1
+          readOnly: true
+          subPath: nginx.conf
+        - mountPath: /usr/share/nginx/html/assets/config.json
+          name: vol2
+          readOnly: true
+          subPath: config.json
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 256
+          name: catanie-nginx
+          optional: false
+        name: vol1
+      - configMap:
+          defaultMode: 292
+          items:
+          - key: config.json
+            mode: 292
+            path: config.json
+          name: catanie-config
+          optional: false
+        name: vol2
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2021-05-07T16:32:01Z"
+    lastUpdateTime: "2023-02-22T00:51:40Z"
+    message: ReplicaSet "web-7dbd4848db" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2023-08-08T16:09:18Z"
+    lastUpdateTime: "2023-08-08T16:09:18Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 244
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
