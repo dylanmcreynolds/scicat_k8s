@@ -23,10 +23,7 @@ spec:
         workload.user.cattle.io/workloadselector: deployment-als-portal-app
     spec:
       containers:
-      - args:
-        - sleep
-        - "99999"
-        env:
+      - env:
             - name: NODE_OPTIONS
               value: --max-old-space-size=8192
             - name: USER_SVC_API_URL
@@ -119,16 +116,9 @@ spec:
           readOnlyRootFilesystem: false
           runAsNonRoot: true
           runAsUser: 79966
-      volumes:
-      - name: als-config
-        emptyDir: {}
       securityContext:
         fsGroup: 94721
       volumes:
-        - name: migrations-secret
-          secret:
-            defaultMode: 420
-            secretName: migrations-mongodburi
         - name: als-settings
           emptyDir:
         - name: mongo-user-uri
