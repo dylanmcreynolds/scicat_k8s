@@ -33,10 +33,8 @@ spec:
                 secretKeyRef:
                   key: API_KEY
                   name: datadirectory
-            - name: DOI_PREFIX
-              value: DOI.SAMPLE.PREFIX
             - name: EXPRESS_SESSION_SECRET
-              value: a_scicat_secret
+              value: a_scicat_secretfdsfdsfdsfsd
             - name: HTTP_MAX_REDIRECTS
               value: "5"
             - name: HTTP_TIMEOUT
@@ -44,11 +42,21 @@ spec:
             - name: JWT_EXPIRES_IN
               value: "3600"
             - name: JWT_SECRET
-              value: a_scicat_secret
+              value: a_scicat_secretsdfsdfsfsdfsf
             - name: PID_PREFIX
               value: als
             - name: PORT
               value: "3000"
+            - name: OIDC_ISSUER
+              value: https://orcid.org
+            - name: OIDC_CLIENT_ID
+              value: APP-8965ZC02FLX4VFC6
+            - name: OIDC_CLIENT_SECRET
+              value: ddcac3e0-6c3e-4ea1-900d-b831928ccf7f
+            - name: OIDC_CALLBACK_URL
+              value: https://dataportal.als.lbl.gov/api/v3/auth/oidc/callback
+            - name: OIDC_SUCCESS_URL
+              value: https://dataportal.als.lbl.gov/user          
         envFrom:
           - secretRef:
               name: mongo-user-uri
@@ -81,6 +89,15 @@ spec:
             readOnly: true
             mountPath: /home/node/app/dist/src/config/frontend.config.json
             subPath: als-settings/frontend/prod-config.json
+          - name: als-settings
+            readOnly: true
+            mountPath: /home/node/app/dist/src/auth/access-group-provider/access-group-from-ALS.service.js
+            subPath: als-settings/backend/src/dist/auth/access-group-provider/access-group-from-ALS.service.js
+          - name: als-settings
+            readOnly: true
+            mountPath: /home/node/app/dist/auth/access-group-provider/access-group-service-factory.js
+            subPath: als-settings/backend/dist/auth/access-group-provider/access-group-service-factory.js
+            
       initContainers:
       # A sidecar container that downloads current main from setttings github repo
       # and places it into an emptydir volume. This gets picked up by scicat backend
