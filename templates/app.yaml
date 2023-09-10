@@ -73,17 +73,14 @@ spec:
         terminationMessagePolicy: File
         tty: true
         volumeMounts:
-          - mountPath: /home/node/app/.env
-            subPath: .env
-            name: migrations-secret
           - name: als-settings
-            readOnly: false
+            readOnly: true
             mountPath: /home/node/app/migrate-mongo-config.js
             subPath: als-settings/backend/migrate-mongo-config.js
           - name: als-settings
-            readOnly: false
-            mountPath: /home/node/app/migrate-mongo-config.js
-            subPath: als-settings/backend/migrate-mongo-config.js
+            readOnly: true
+            mountPath: /home/node/app/dist/src/config/frontend.config.json
+            subPath: als-settings/frontend/prod-config.json
       initContainers:
       # A sidecar container that downloads current main from setttings github repo
       # and places it into an emptydir volume. This gets picked up by scicat backend
