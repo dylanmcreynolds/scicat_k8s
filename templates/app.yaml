@@ -27,7 +27,7 @@ spec:
             - name: NODE_OPTIONS
               value: --max-old-space-size=8192
             - name: USER_SVC_API_URL
-              value: https://api1-prd.als.lbl.gov:8083/api/v1/users/
+              value: https://api1-prd.als.lbl.gov:8083/api/v1/users
             - name: USER_SVC_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -56,7 +56,7 @@ spec:
             - name: OIDC_CALLBACK_URL
               value: https://dataportal.als.lbl.gov/api/v3/auth/oidc/callback
             - name: OIDC_SUCCESS_URL
-              value: https://dataportal.als.lbl.gov/user          
+              value: https://dataportal.als.lbl.gov/login          
         envFrom:
           - secretRef:
               name: mongo-user-uri
@@ -91,12 +91,8 @@ spec:
             subPath: als-settings/frontend/prod-config.json
           - name: als-settings
             readOnly: true
-            mountPath: /home/node/app/dist/src/auth/access-group-provider/access-group-from-ALS.service.js
-            subPath: als-settings/backend/src/dist/auth/access-group-provider/access-group-from-ALS.service.js
-          - name: als-settings
-            readOnly: true
-            mountPath: /home/node/app/dist/auth/access-group-provider/access-group-service-factory.js
-            subPath: als-settings/backend/dist/auth/access-group-provider/access-group-service-factory.js
+            mountPath: /home/node/app/dist/src/auth/strategies/oidc.strategy.js
+            subPath: als-settings/backend/dist/src/auth/strategies/oidc.strategy.js
             
       initContainers:
       # A sidecar container that downloads current main from setttings github repo
@@ -139,3 +135,19 @@ spec:
           secret:
             defaultMode: 420
             secretName: mongo-user-uri
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  name: app-svc
+  namespace: als-portal
+spec:
+  ports:
+    - name: default
+      port: 42
+      protocol: TCP
+      targetPort: 42
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-als-portal-app
+  type: ClusterIP

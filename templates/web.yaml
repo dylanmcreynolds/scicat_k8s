@@ -96,17 +96,22 @@ spec:
       volumes:
         - name: als-settings
           emptyDir:
-        # - configMap:
-        #     defaultMode: 256
-        #     name: catanie-nginx
-        #     optional: false
-        #   name: catanie-nginx-vol
-        # - configMap:
-        #     defaultMode: 292
-        #     items:
-        #       - key: config.json
-        #         mode: 292
-        #         path: config.json
-        #     name: catanie-config
-        #     optional: false
-        #   name: catanie-config-vol
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: als-portal
+spec:
+  clusterIP: None
+  clusterIPs:
+    - None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: default
+      port: 42
+      protocol: TCP
+      targetPort: 42
+  type: ClusterIP
